@@ -70,7 +70,7 @@ void update_progress(){
       if (Update.end(true)) { //true to set the size to the current progress
         Serial.printf("Update Success: %u\nRebooting...\n", upload.totalSize);
         update_server->sendHeader("Connection", "close");
-        update_server->send(200, "text/plain", "Upload succesful, rebooting");
+        update_server->send(200, "text/plain", "Upload successful, rebooting");
       } else {
         Update.printError(Serial);
         update_server->send(200, "text/plain", "Upload failed");
