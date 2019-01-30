@@ -16,7 +16,7 @@ const char* updatepage =
    }, false);\n\\
   xhr.onload = function(){ \n\\
     if ( xhr.status == 200) {\n\\
-      progdiv.innerHTML = 'Upload succesful';\n\\
+      progdiv.innerHTML = 'Upload successful';\n\\
     } else {\n\\
       progdiv.innerHTML = 'Error uploading file';\n\\
     }\n\\ 
@@ -62,13 +62,13 @@ void update_progress(){
       }
     } else if (upload.status == UPLOAD_FILE_WRITE) {
       /* flashing firmware to ESP*/
-       
+      
       if (Update.write(upload.buf, upload.currentSize) != upload.currentSize) {
         Update.printError(Serial);
       }
     } else if (upload.status == UPLOAD_FILE_END) {
       if (Update.end(true)) { //true to set the size to the current progress
-        Serial.printf("Update Success: %u\nRebooting...\n", upload.totalSize);
+        Serial.printf("\nUpdate Success: %u\nRebooting...\n", upload.totalSize);
         update_server->sendHeader("Connection", "close");
         update_server->send(200, "text/plain", "Upload successful, rebooting");
       } else {
