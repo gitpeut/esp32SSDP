@@ -27,6 +27,12 @@ void setup(void) {
   server.on("/", HTTP_GET, []() {
     server.send(200, "text/html", nothing);
   });
+
+   server.on("/reset", HTTP_GET, []() {
+    server.send(200, "text/plain", "Resetting...");
+    delay(3000);
+    ESP.restart(); 
+  });
   
   server.on("/description.xml", HTTP_GET, [](){
     SSDPDevice.schema( server.client());     

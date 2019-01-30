@@ -16,7 +16,7 @@ const char* updatepage =
    }, false);\n\\
   xhr.onload = function(){ \n\\
     if ( xhr.status == 200) {\n\\
-      progdiv.innerHTML = 'Upload successful';\n\\
+      progdiv.innerHTML = 'Upload finished';\n\\
     } else {\n\\
       progdiv.innerHTML = 'Error uploading file';\n\\
     }\n\\ 
@@ -52,6 +52,7 @@ void update_ask(){
 /*-----------------------------------------------------------------------------------*/
 
 void update_progress(){
+    static int written_size=0;
     
     HTTPUpload& upload = update_server->upload();
     
@@ -60,9 +61,10 @@ void update_progress(){
       if (!Update.begin(UPDATE_SIZE_UNKNOWN)) { //start with max available size
         Update.printError(Serial);
       }
-    } else if (upload.status == UPLOAD_FILE_WRITE) {
+    } else if (upload.status == UPLOAD_FILE_WRITE ) {
       /* flashing firmware to ESP*/
-      
+      //written_size += upload.currentSize;
+      //Serial.printf("Writing %d bytes, %d/%d\n", upload.currentSize, upload.totalSize, written_size );
       if (Update.write(upload.buf, upload.currentSize) != upload.currentSize) {
         Update.printError(Serial);
       }
