@@ -221,7 +221,7 @@ void SSDPDeviceClass::send(ssdp_send_parameters_t *parameters) {
 		LIP2STR(&ip), m_port, m_schemaURL
 	);
 
-	if (parameters->address == SSDP_MULTICAST_ADDR) {
+	if (parameters->address == (uint32_t) SSDP_MULTICAST_ADDR) {
 #ifdef ESP8266
 		m_server->beginPacketMulticast(parameters->address, parameters->port, m_ttl);
 #endif
